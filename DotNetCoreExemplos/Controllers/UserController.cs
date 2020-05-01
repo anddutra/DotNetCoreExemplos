@@ -20,5 +20,12 @@ namespace DotNetCoreExemplos.Controllers
         {
             return Ok(_userServices.SaveUserFile(user));
         }
+
+        [HttpGet("ReadUserFile")]
+        //Chamada realizada através do endereço http://localhost:5000/api/User/ReadUserFile
+        public ActionResult<string> ReadUserFile()
+        {
+            return Ok(_userServices.ReadUserFile());
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace DotNetCoreExemplos.Services
 {
@@ -10,12 +11,7 @@ namespace DotNetCoreExemplos.Services
         private int userId = 0;
         public bool SaveUserFile(User user)
         {
-            if (userId == 0)
-                deleteUserFile();
-
-            userId += 1;
-            user.Id = userId;
-
+            user.Id = GetNextId();
             string path = Path.Combine(Directory.GetCurrentDirectory(), "UserFile.txt");
             string userJson = JsonConvert.SerializeObject(user);
             try
@@ -32,12 +28,38 @@ namespace DotNetCoreExemplos.Services
             }
         }
 
-        private void deleteUserFile()
+        public string ReadUserFile()
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), "UserFile.txt");
-            
+            string usuarios = string.Empty;
             if (File.Exists(path))
-                File.Delete(path);
+                usuarios = File.ReadAllText(path);
+
+            if (String.IsNullOrEmpty(usuarios))
+                usuarios = "Nenhum usuário cadastrado!";
+
+            return usuarios;
+        }
+
+        private int GetNextId()
+        {
+            if (userId == 0)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "UserFile.txt");
+
+                if (File.Exists(path))
+                {
+                    string userJson = File.ReadLines(path).Last();
+                    if (!String.IsNullOrEmpty(userJson))
+                    {
+                        User usuario = JsonConvert.DeserializeObject<User>(userJson);
+                        userId = usuario.Id + 1;
+                        return userId;
+                    }
+                }
+            }
+            userId += 1;
+            return userId;
         }
     }
 }
