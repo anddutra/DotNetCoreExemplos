@@ -1,13 +1,24 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 
 namespace DotNetCoreExemplos.Services
 {
     public class ValueServices
     {
+        private readonly ILogger _logger;
+
+        public ValueServices(ILogger<ValueServices> logger)
+        {
+            _logger = logger;
+        }
+
         public int GetRandomValue()
         {
             Random random = new Random();
-            return random.Next(1, 100);
+            int value = random.Next(1, 100);
+
+            _logger.LogInformation($"Número aleatório {value}");
+            return value;
         }
 
         public string GetOddOrEven(int value)

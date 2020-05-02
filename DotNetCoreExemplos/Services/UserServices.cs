@@ -1,4 +1,5 @@
 ﻿using DotNetCoreExemplos.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -8,7 +9,14 @@ namespace DotNetCoreExemplos.Services
 {
     public class UserServices
     {
+        private readonly ILogger _logger;
         private int userId = 0;
+
+        public UserServices(ILogger<UserServices> logger)
+        {
+            _logger = logger;
+        }
+
         public bool SaveUserFile(User user)
         {
             user.Id = GetNextId();
@@ -20,10 +28,13 @@ namespace DotNetCoreExemplos.Services
                     File.WriteAllText(path, userJson);
                 else
                     File.AppendAllText(path, String.Format("{0}{1}", Environment.NewLine, userJson));
+
+                _logger.LogInformation($"Usuário {user.Name} salvo com sucesso!");
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError(1, ex, $"Erro ao gravar usuario {user.Name}!");
                 return false;
             }
         }
@@ -59,6 +70,8 @@ namespace DotNetCoreExemplos.Services
                 }
             }
             userId += 1;
+
+            _logger.LogInformation($"Próximo Id {userId}");
             return userId;
         }
     }
