@@ -1,3 +1,4 @@
+using DotNetCoreExemplos.Middlewares;
 using DotNetCoreExemplos.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,8 @@ namespace DotNetCoreExemplos
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseMiddleware<TokenValidation>(); //Middleware para validação do 'token' da requisição.
+
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
