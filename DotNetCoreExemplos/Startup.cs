@@ -24,6 +24,9 @@ namespace DotNetCoreExemplos
             services.AddSingleton<UserServices>(); //Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
             services.AddHealthChecksApi(); //Verificação de saúde da Api.
             services.AddSwaggerGenApi(); //Configuração Swagger
+
+            services.AddHostedService<HelloWorldHostedService>(); //Configurado tarefa que irá rodar em segundo plano
+            services.AddHostedService<StartApiHostedService>(); //Configurado tarefa que irá rodar quando a Api subir
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
