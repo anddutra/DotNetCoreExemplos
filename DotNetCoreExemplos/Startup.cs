@@ -17,15 +17,15 @@ namespace DotNetCoreExemplos
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddScoped<ValueServices>(); //Criado/Instanciado uma vez por solicitação.
             services.AddSingleton<UserServices>(); //Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
+            services.AddHealthChecksApi(); //Verificação de saúde da Api.
+            services.AddSwaggerGenApi(); //Configuração Swagger
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -33,7 +33,9 @@ namespace DotNetCoreExemplos
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMiddleware<TokenValidation>(); //Middleware para validação do 'token' da requisição.
+            //app.UseMiddleware<TokenValidation>(); //Middleware para validação do 'token' da requisição.
+            app.UseHealthChecksApi(); //Endpoint para verificar a saude da Api.
+            app.UseSwaggerApi(); //Endpoint Swagger
 
             app.UseRouting();
             app.UseAuthorization();
