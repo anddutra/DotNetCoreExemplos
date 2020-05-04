@@ -40,7 +40,7 @@ namespace DotNetCoreExemplos.Middlewares
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.RoutePrefix = "docs";
+                c.RoutePrefix = string.Empty;
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Docs");
             });
         }
