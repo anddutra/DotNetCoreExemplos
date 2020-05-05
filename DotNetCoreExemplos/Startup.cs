@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace DotNetCoreExemplos
 {
@@ -27,6 +28,12 @@ namespace DotNetCoreExemplos
 
             services.AddHostedService<HelloWorldHostedService>(); //Configurado tarefa que irá rodar em segundo plano
             services.AddHostedService<StartApiHostedService>(); //Configurado tarefa que irá rodar quando a Api subir
+
+            //Configura o httpClient que será utilizado na Api
+            services.AddHttpClient("HttpClientApi", c =>
+            {
+                c.BaseAddress = new Uri("http://worldtimeapi.org/api/timezone/");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
