@@ -33,7 +33,8 @@ namespace DotNetCoreExemplos
             services.AddHttpClient("HttpClientApi", c =>
             {
                 c.BaseAddress = new Uri("http://worldtimeapi.org/api/timezone/");
-            }); 
+                c.DefaultRequestHeaders.Add("X-TraceId", "123456");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

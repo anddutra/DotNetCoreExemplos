@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,9 +34,9 @@ namespace DotNetCoreExemplos.Services
 
 
         //Realiza a criação do httpClient com o nome HttpClientApi, conforme criado no Startup
-        //Faz a chamada para a API worldtimeapi passando na url America/Sao_Paulo
+        //Faz a chamada para a Api worldtimeapi passando na url America/Sao_Paulo
         //https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.1
-        //http://worldtimeapi.org/ 
+        //http://worldtimeapi.org/
         public async void GetRestApi()
         {
             var client = _httpClientFactory.CreateClient("HttpClientApi");
