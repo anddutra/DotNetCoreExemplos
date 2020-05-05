@@ -33,7 +33,7 @@ namespace DotNetCoreExemplos
             services.AddHttpClient("HttpClientApi", c =>
             {
                 c.BaseAddress = new Uri("http://worldtimeapi.org/api/timezone/");
-            });
+            }); 
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
