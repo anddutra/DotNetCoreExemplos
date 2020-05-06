@@ -6,6 +6,7 @@ namespace DotNetCoreExemplos.Services
     public class ValueServices
     {
         private readonly ILogger _logger;
+        private int _value = 0;
 
         public ValueServices(ILogger<ValueServices> logger)
         {
@@ -19,6 +20,12 @@ namespace DotNetCoreExemplos.Services
 
             _logger.LogInformation($"Número aleatório {value}");
             return value;
+        }
+
+        public int GetNextValue()
+        {
+            _value += 1;
+            return _value;
         }
 
         public string GetOddOrEven(int value)

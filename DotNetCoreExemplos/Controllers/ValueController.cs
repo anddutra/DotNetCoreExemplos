@@ -21,12 +21,19 @@ namespace DotNetCoreExemplos.Controllers
             return Ok(result);
         }
 
+        [HttpGet("NextValue")]
+        //Chamada realizada através do endereço http://localhost:5000/api/Value/NextValue
+        public ActionResult<int> GetNextValue()
+        {
+            return Ok(_valueServices.GetNextValue());
+        }
+
         [HttpGet("OddOrEven")]
         //Chamada realizada através do endereço http://localhost:5000/api/Value/OddOrEven?value=10
         public ActionResult<string> GetOddOrEven(int value)
         {
             return Ok(_valueServices.GetOddOrEven(value));
-        }
+        }        
 
         [HttpGet("Sum3Values/{value1}")]
         //Chamada realizada através do endereço http://localhost:5000/api/Value/Sum3Values/10/?value2=20
