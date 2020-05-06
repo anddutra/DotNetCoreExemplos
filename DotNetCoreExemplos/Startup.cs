@@ -1,4 +1,5 @@
 using DotNetCoreExemplos.Middlewares;
+using DotNetCoreExemplos.Repository;
 using DotNetCoreExemplos.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,15 +22,17 @@ namespace DotNetCoreExemplos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ValueServices>(); //Criado/Instanciado uma vez por solicitação.
-            services.AddSingleton<UserServices>(); //Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
+            services.AddSingleton<ValueServices>(); //Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
+            services.AddScoped<UserServices>(); //Criado/Instanciado uma vez por solicitação.
+            services.AddSingleton<IUserRepository, UserRepository>(); //Criado/Instanciado quando a api é executada.
+
             services.AddHealthChecksApi(); //Verificação de saúde da Api.
-            services.AddSwaggerGenApi(); //Configuração Swagger
+            services.AddSwaggerGenApi(); //Configuração Swagger.
 
-            services.AddHostedService<HelloWorldHostedService>(); //Configurado tarefa que irá rodar em segundo plano
-            services.AddHostedService<StartApiHostedService>(); //Configurado tarefa que irá rodar quando a Api subir
+            services.AddHostedService<HelloWorldHostedService>(); //Configurado tarefa que irá rodar em segundo plano.
+            services.AddHostedService<StartApiHostedService>(); //Configurado tarefa que irá rodar quando a Api subir.
 
-            //Configura o httpClient que será utilizado na Api
+            //Configura o httpClient que será utilizado na Api.
             services.AddHttpClient("HttpClientApi", c =>
             {
                 c.BaseAddress = new Uri("http://worldtimeapi.org/api/timezone/");
@@ -46,7 +49,7 @@ namespace DotNetCoreExemplos
 
             //app.UseMiddleware<TokenValidation>(); //Middleware para validação do 'token' da requisição.
             app.UseHealthChecksApi(); //Endpoint para verificar a saude da Api.
-            app.UseSwaggerApi(); //Endpoint Swagger
+            app.UseSwaggerApi(); //Endpoint Swagger.
 
             app.UseRouting();
             app.UseAuthorization();

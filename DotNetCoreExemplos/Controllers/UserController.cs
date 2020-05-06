@@ -14,18 +14,30 @@ namespace DotNetCoreExemplos.Controllers
             _userServices = userServices;
         }
 
-        [HttpPost("SaveUserFile")]
-        //Chamada realizada através do endereço http://localhost:5000/api/User/SaveUserFile
+        [HttpPost("SaveUser")]
+        //Chamada realizada através do endereço http://localhost:5000/api/User/SaveUser
+        //{
+        //    "name": "Andre",
+        //    "lastName": "Dutra",
+        //    "email": "email@mail.com"
+        //}
         public ActionResult<bool> SaveUserFile([FromBody]User user)
         {
             return Ok(_userServices.SaveUserFile(user));
         }
 
-        [HttpGet("ReadUserFile")]
-        //Chamada realizada através do endereço http://localhost:5000/api/User/ReadUserFile
-        public ActionResult<string> ReadUserFile()
+        [HttpDelete("DeleteUser/{id}")]
+        //Chamada realizada através do endereço http://localhost:5000/api/User/DeleteUser/1
+        public ActionResult<bool> DeleteUserFile(int id)
         {
-            return Ok(_userServices.ReadUserFile());
+            return Ok(_userServices.DeleteUserFile(id));
+        }
+
+        [HttpGet("ReadUsers")]
+        //Chamada realizada através do endereço http://localhost:5000/api/User/ReadUsers?name=Andre
+        public ActionResult<string> ReadUsersFile(string name)
+        {
+            return Ok(_userServices.ReadUsersFile(name));
         }
     }
 }
