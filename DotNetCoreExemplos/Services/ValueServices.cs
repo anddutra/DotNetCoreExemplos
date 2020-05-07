@@ -18,13 +18,15 @@ namespace DotNetCoreExemplos.Services
             Random random = new Random();
             int value = random.Next(1, 100);
 
-            _logger.LogInformation($"Número aleatório {value}");
+            _logger?.LogInformation($"Número aleatório {value}");
             return value;
         }
 
         public int GetNextValue()
         {
             _value += 1;
+
+            _logger?.LogInformation($"Próximo valor {_value}");
             return _value;
         }
 

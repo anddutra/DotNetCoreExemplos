@@ -68,12 +68,12 @@ namespace DotNetCoreExemplos.Repository
 
                 if (!String.IsNullOrEmpty(usersJson))
                 {
-                    List<User> usuarios = JsonConvert.DeserializeObject<List<User>>(usersJson);
+                    List<User> users = JsonConvert.DeserializeObject<List<User>>(usersJson);
 
                     if (name != null)
-                        usuarios = usuarios.Where(u => u.Name.ToUpper().StartsWith(name.ToUpper())).ToList();
+                        users = users.Where(u => u.Name.ToUpper().StartsWith(name.ToUpper())).ToList();
 
-                    return JsonConvert.SerializeObject(usuarios);
+                    return JsonConvert.SerializeObject(users);
                 }
             }
 

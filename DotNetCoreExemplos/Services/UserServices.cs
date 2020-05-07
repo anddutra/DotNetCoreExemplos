@@ -22,9 +22,9 @@ namespace DotNetCoreExemplos.Services
             bool saveUser = _userRepository.SaveUserFile(user);
 
             if(saveUser)
-                _logger.LogInformation($"Usuário {user.Name} salvo com sucesso!");
+                _logger?.LogInformation($"Usuário {user.Name} salvo com sucesso!");
             else
-                _logger.LogError(1, $"Erro ao gravar usuario {user.Name}!");
+                _logger?.LogError(1, $"Erro ao gravar usuario {user.Name}!");
 
             return saveUser;
         }
@@ -34,9 +34,9 @@ namespace DotNetCoreExemplos.Services
             bool deleteUser = _userRepository.DeleteUserFile(id);
 
             if (deleteUser)
-                _logger.LogInformation($"Usuário {id} excluído com sucesso!");
+                _logger?.LogInformation($"Usuário {id} excluído com sucesso!");
             else
-                _logger.LogError(1, $"Usuário {id} não encontrado para exclusão!");
+                _logger?.LogError(1, $"Usuário {id} não encontrado para exclusão!");
 
             return deleteUser;
         }
