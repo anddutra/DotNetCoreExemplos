@@ -23,8 +23,9 @@ namespace DotNetCoreExemplos
         {
             services.AddControllers();
             services.AddSingleton<ValueServices>(); //Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
-            services.AddScoped<UserServices>(); //Criado/Instanciado uma vez por solicitação.
+            services.AddScoped<UserServices>(); //Criado/Instanciado uma vez por solicitação/request.
             services.AddSingleton<IUserRepository, UserRepository>(); //Criado/Instanciado quando a api é executada.
+            //services.AddTransient<Teste>(); // Criado/Instanciado cada vez que que é solicitado/injetado na classe
 
             services.AddHealthChecksApi(); //Verificação de saúde da Api.
             services.AddSwaggerGenApi(); //Configuração Swagger.

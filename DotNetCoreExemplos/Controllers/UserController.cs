@@ -8,7 +8,7 @@ namespace DotNetCoreExemplos.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        UserServices _userServices;
+        private readonly UserServices _userServices;
         public UserController(UserServices userServices)
         {
             _userServices = userServices;
