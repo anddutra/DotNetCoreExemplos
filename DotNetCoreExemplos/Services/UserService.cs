@@ -6,12 +6,12 @@ using System.IO;
 
 namespace DotNetCoreExemplos.Services
 {
-    public class UserServices
+    public class UserService
     {
         private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
 
-        public UserServices(ILogger<UserServices> logger, IUserRepository userRepository)
+        public UserService(ILogger<UserService> logger, IUserRepository userRepository)
         {
             _logger = logger;
             _userRepository = userRepository;

@@ -12,11 +12,11 @@ namespace DotNetCoreExemplos.Test
 {
     public class UserTest
     {
-        private UserServices _userServices;
+        private UserService _userServices;
 
         public UserTest()
         {
-            _userServices = new UserServices(null, new UserRepositoryMockup());
+            _userServices = new UserService(null, new UserRepositoryMockup());
         }
 
         [Fact]

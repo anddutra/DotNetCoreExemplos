@@ -7,8 +7,8 @@ namespace DotNetCoreExemplos.Controllers
     [ApiController]
     public class ValueController : ControllerBase
     {
-        ValueServices _valueServices;
-        public ValueController(ValueServices valueServices)
+        ValueService _valueServices;
+        public ValueController(ValueService valueServices)
         {
             _valueServices = valueServices;
         }

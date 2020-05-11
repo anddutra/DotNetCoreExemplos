@@ -8,8 +8,8 @@ namespace DotNetCoreExemplos.Controllers
     [ApiController]
     public class ApiRequestController : ControllerBase
     {
-        ApiRequestServices _apiRequestServices;
-        public ApiRequestController(ApiRequestServices apiRequestServices)
+        ApiRequestService _apiRequestServices;
+        public ApiRequestController(ApiRequestService apiRequestServices)
         {
             _apiRequestServices = apiRequestServices;
         }

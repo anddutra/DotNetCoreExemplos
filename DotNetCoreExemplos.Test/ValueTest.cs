@@ -6,11 +6,11 @@ namespace DotNetCoreExemplos.Test
     public class ValueTest
     {
 
-        private ValueServices _valueServices;
+        private ValueService _valueServices;
 
         public ValueTest()
         {
-            _valueServices = new ValueServices(null);
+            _valueServices = new ValueService(null);
         }
 
         [Fact]

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace DotNetCoreExemplos.Services
 {
-    public class ApiRequestServices
+    public class ApiRequestService
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger _logger;
 
-        public ApiRequestServices(ILogger<ApiRequestServices> logger, IHttpClientFactory httpClientFactory)
+        public ApiRequestService(ILogger<ApiRequestService> logger, IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;

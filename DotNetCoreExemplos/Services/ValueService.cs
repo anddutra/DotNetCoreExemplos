@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace DotNetCoreExemplos.Services
 {
-    public class ValueServices
+    public class ValueService
     {
         private readonly ILogger _logger;
         private int _value = 0;
 
-        public ValueServices(ILogger<ValueServices> logger)
+        public ValueService(ILogger<ValueService> logger)
         {
             _logger = logger;
         }

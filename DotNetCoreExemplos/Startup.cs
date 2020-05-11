@@ -28,16 +28,16 @@ namespace DotNetCoreExemplos
             */
 
             services.AddControllers();
-            services.AddSingleton<ValueServices>();
+            services.AddSingleton<ValueService>();
             services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddScoped<UserServices>();
-            services.AddScoped<ApiRequestServices>();
+            services.AddScoped<UserService>();
+            services.AddScoped<ApiRequestService>();
 
             services.AddHealthChecksApi(); //Verificação de saúde da Api.
             services.AddSwaggerGenApi(); //Configuração Swagger.
 
-            services.AddHostedService<HelloWorldHostedServices>(); //Configurado tarefa que irá rodar em segundo plano.
-            services.AddHostedService<StartApiHostedServices>(); //Configurado tarefa que irá rodar quando a Api subir.
+            services.AddHostedService<HelloWorldHostedService>(); //Configurado tarefa que irá rodar em segundo plano.
+            services.AddHostedService<StartApiHostedService>(); //Configurado tarefa que irá rodar quando a Api subir.
 
             //Configura o httpClient que será utilizado na Api.
             services.AddHttpClient("HttpClientApi", c =>
