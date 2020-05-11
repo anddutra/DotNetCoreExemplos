@@ -1,5 +1,4 @@
 ﻿using DotNetCoreExemplos.Models;
-using System.Security.Principal;
 
 namespace DotNetCoreExemplos.Repository
 {

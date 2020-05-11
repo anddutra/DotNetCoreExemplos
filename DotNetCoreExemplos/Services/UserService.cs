@@ -1,8 +1,6 @@
 ﻿using DotNetCoreExemplos.Models;
 using DotNetCoreExemplos.Repository;
 using Microsoft.Extensions.Logging;
-using System;
-using System.IO;
 
 namespace DotNetCoreExemplos.Services
 {

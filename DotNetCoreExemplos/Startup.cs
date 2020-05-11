@@ -1,3 +1,4 @@
+using DotNetCoreExemplos.HostedServices;
 using DotNetCoreExemplos.Middlewares;
 using DotNetCoreExemplos.Repository;
 using DotNetCoreExemplos.Services;

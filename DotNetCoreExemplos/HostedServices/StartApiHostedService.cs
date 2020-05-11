@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DotNetCoreExemplos.Services
+namespace DotNetCoreExemplos.HostedServices
 {
     //IHostedService é iniciado quando a Api é executada e executa o StartAsync de acordo com o timer definido.
     //Caso não seja utilizado um timer, o procedimento será executado apenas quando a Api subir.
