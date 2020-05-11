@@ -1,43 +1,25 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace DotNetCoreExemplos.Services
 {
-    //IHostedService é iniciado quando a Api é executada e executa o StartAsync de acordo com o timer definido.
-    //Caso não seja utilizado um timer, o procedimento será executado apenas quando a Api subir.
-    //https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.1&tabs=visual-studio
-    public class StartApiHostedService : IHostedService
+    public class ApiRequestServices
     {
-        private readonly ILogger<StartApiHostedService> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger _logger;
 
-        public StartApiHostedService(ILogger<StartApiHostedService> logger, IHttpClientFactory httpClientFactory)
+        public ApiRequestServices(ILogger<ApiRequestServices> logger, IHttpClientFactory httpClientFactory)
         {
-            _logger = logger;
             _httpClientFactory = httpClientFactory;
+            _logger = logger;
         }
-
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            StartApi();
-            GetRestApi();
-            return Task.CompletedTask;
-        }
-
-        public void StartApi()
-        {
-            _logger.LogInformation("Api sendo inicializada...");
-        }
-
 
         //Realiza a criação do httpClient com o nome HttpClientApi, conforme criado no Startup
         //Faz a chamada para a Api worldtimeapi passando na url America/Sao_Paulo
         //https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.1
         //http://worldtimeapi.org/
-        public async void GetRestApi()
+        public async Task<string> GetApiWorldTime()
         {
             var client = _httpClientFactory.CreateClient("HttpClientApi");
             var request = new HttpRequestMessage(HttpMethod.Get, "America/Sao_Paulo");
@@ -47,13 +29,13 @@ namespace DotNetCoreExemplos.Services
             {
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 _logger.LogInformation("Api worldtimeapi chamada com sucesso.");
+                return jsonResponse;
             }
             else
             {
                 _logger.LogInformation("Falha ao chamar a api worldtimeapi.");
+                return "Erro ao chamar a api worldtimeapi";
             }
         }
-
-        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }

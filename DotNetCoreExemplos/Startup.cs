@@ -21,23 +21,35 @@ namespace DotNetCoreExemplos
 
         public void ConfigureServices(IServiceCollection services)
         {
+            /*
+             AddSingleton - Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
+             AddScoped    - Criado/Instanciado uma vez por solicitação/request.
+             AddTransient - Criado/Instanciado cada vez que é solicitado/injetado na classe
+            */
+
             services.AddControllers();
-            services.AddSingleton<ValueServices>(); //Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
-            services.AddScoped<UserServices>(); //Criado/Instanciado uma vez por solicitação/request.
-            services.AddSingleton<IUserRepository, UserRepository>(); //Criado/Instanciado quando a api é executada.
-            //services.AddTransient<Teste>(); // Criado/Instanciado cada vez que que é solicitado/injetado na classe
+            services.AddSingleton<ValueServices>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<UserServices>();
+            services.AddScoped<ApiRequestServices>();
 
             services.AddHealthChecksApi(); //Verificação de saúde da Api.
             services.AddSwaggerGenApi(); //Configuração Swagger.
 
-            services.AddHostedService<HelloWorldHostedService>(); //Configurado tarefa que irá rodar em segundo plano.
-            services.AddHostedService<StartApiHostedService>(); //Configurado tarefa que irá rodar quando a Api subir.
+            services.AddHostedService<HelloWorldHostedServices>(); //Configurado tarefa que irá rodar em segundo plano.
+            services.AddHostedService<StartApiHostedServices>(); //Configurado tarefa que irá rodar quando a Api subir.
 
             //Configura o httpClient que será utilizado na Api.
             services.AddHttpClient("HttpClientApi", c =>
             {
                 c.BaseAddress = new Uri("http://worldtimeapi.org/api/timezone/");
                 c.DefaultRequestHeaders.Add("X-TraceId", "123456");
+            }).AddHeaderPropagation();
+
+            //Propaga o header do request de entrada para o request de saída.
+            services.AddHeaderPropagation(options =>
+            {
+                options.Headers.Add("token");
             });
         }
 
@@ -51,6 +63,7 @@ namespace DotNetCoreExemplos
             //app.UseMiddleware<TokenValidation>(); //Middleware para validação do 'token' da requisição.
             app.UseHealthChecksApi(); //Endpoint para verificar a saude da Api.
             app.UseSwaggerApi(); //Endpoint Swagger.
+            app.UseHeaderPropagation(); //Configura a propagação dos headers
 
             app.UseRouting();
             app.UseAuthorization();

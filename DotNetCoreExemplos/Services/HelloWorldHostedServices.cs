@@ -10,12 +10,12 @@ namespace DotNetCoreExemplos.Services
     //Caso não seja utilizado um timer, o procedimento será executado apenas quando a Api subir.
     //A cada 10 segundos será impresso Hello World no console.
     //https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.1&tabs=visual-studio
-    public class HelloWorldHostedService : IHostedService, IDisposable
+    public class HelloWorldHostedServices : IHostedService, IDisposable
     {
-        private readonly ILogger<HelloWorldHostedService> _logger;
+        private readonly ILogger<HelloWorldHostedServices> _logger;
         private System.Timers.Timer _timer;
 
-        public HelloWorldHostedService(ILogger<HelloWorldHostedService> logger)
+        public HelloWorldHostedServices(ILogger<HelloWorldHostedServices> logger)
         {
             _logger = logger;
         }

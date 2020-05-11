@@ -33,7 +33,7 @@ namespace DotNetCoreExemplos.Controllers
         public ActionResult<string> GetOddOrEven(int value)
         {
             return Ok(_valueServices.GetOddOrEven(value));
-        }        
+        }
 
         [HttpGet("Sum3Values/{value1}")]
         //Chamada realizada através do endereço http://localhost:5000/api/Value/Sum3Values/10/?value2=20
