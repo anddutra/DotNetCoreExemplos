@@ -11,6 +11,11 @@ using System;
 
 namespace DotNetCoreExemplos
 {
+    //Tutoriais e Dicas
+    //https://www.tutorialsteacher.com/core
+    //https://docs.microsoft.com/pt-br/dotnet/architecture/modern-web-apps-azure/architectural-principles
+    //Classe Startup
+    //https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/startup?view=aspnetcore-3.1
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -23,6 +28,11 @@ namespace DotNetCoreExemplos
         public void ConfigureServices(IServiceCollection services)
         {
             /*
+             https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1
+             https://medium.com/@nelson.souza/net-core-dependency-injection-1c1900d1bef
+             https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96
+             https://andrewlock.net/the-difference-between-getservice-and-getrquiredservice-in-asp-net-core/
+
              AddSingleton - Criado/Instanciado quando a api é executada e todas as solicitações utilizam a mesma instância.
              AddScoped    - Criado/Instanciado uma vez por solicitação/request.
              AddTransient - Criado/Instanciado cada vez que é solicitado/injetado na classe
