@@ -1,6 +1,5 @@
 ﻿using DotNetCoreExemplos.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +20,7 @@ namespace DotNetCoreExemplos.Repository
                 if (File.Exists(_path))
                 {
                     usersJson = File.ReadAllText(_path);
-                    if (!String.IsNullOrEmpty(usersJson))
+                    if (!string.IsNullOrEmpty(usersJson))
                         users = JsonConvert.DeserializeObject<List<User>>(usersJson);
                 }
 
@@ -46,7 +45,7 @@ namespace DotNetCoreExemplos.Repository
             {
                 string usersJson = File.ReadAllText(_path);
 
-                if (!String.IsNullOrEmpty(usersJson))
+                if (!string.IsNullOrEmpty(usersJson))
                 {
                     List<User> usuarios = JsonConvert.DeserializeObject<List<User>>(usersJson);
                     usuarios.RemoveAll(u => u.Id == id);
@@ -60,24 +59,24 @@ namespace DotNetCoreExemplos.Repository
             return false;
         }
 
-        public string ReadUsersFile(string name)
+        public List<User> ReadUsersFile(string name)
         {
             if (File.Exists(_path))
             {
                 string usersJson = File.ReadAllText(_path);
 
-                if (!String.IsNullOrEmpty(usersJson))
+                if (!string.IsNullOrEmpty(usersJson))
                 {
                     List<User> users = JsonConvert.DeserializeObject<List<User>>(usersJson);
 
                     if (name != null)
                         users = users.Where(u => u.Name.ToUpper().StartsWith(name.ToUpper())).ToList();
 
-                    return JsonConvert.SerializeObject(users);
+                    return users;
                 }
             }
 
-            return string.Empty;
+            return null;
         }
 
         private int GetNextId(List<User> users)

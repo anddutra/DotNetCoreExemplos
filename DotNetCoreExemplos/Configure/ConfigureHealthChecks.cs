@@ -7,14 +7,14 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace DotNetCoreExemplos.Middlewares
+namespace DotNetCoreExemplos.Configure
 {
     //Verifica a saúde da Api. 
     //https://docs.microsoft.com/pt-br/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-3.1
     public static class ConfigureHealthChecks
     {
         //HealthChecks que serão verificados.
-        //Nesse caso foi adiciona´apenas um exemplo.
+        //Nesse caso foi adicionado apenas um exemplo.
         public static void AddHealthChecksApi(this IServiceCollection services)
         {
             services.AddHealthChecks()

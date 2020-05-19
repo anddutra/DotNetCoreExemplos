@@ -47,13 +47,13 @@ namespace DotNetCoreExemplos.Test.Mockup
             return false;
         }
 
-        public string ReadUsersFile(string name)
+        public List<User> ReadUsersFile(string name)
         {
             List<User> users = this.users;
             if (name != null)
                 users = users.Where(u => u.Name.ToUpper().StartsWith(name.ToUpper())).ToList();
 
-            return JsonConvert.SerializeObject(users);
+            return users;
         }
 
         public bool SaveUserFile(User user)

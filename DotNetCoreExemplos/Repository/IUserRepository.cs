@@ -1,4 +1,5 @@
 ﻿using DotNetCoreExemplos.Models;
+using System.Collections.Generic;
 
 namespace DotNetCoreExemplos.Repository
 {
@@ -6,6 +7,6 @@ namespace DotNetCoreExemplos.Repository
     {
         bool SaveUserFile(User user);
         bool DeleteUserFile(int id);
-        string ReadUsersFile(string name);
+        List<User> ReadUsersFile(string name);
     }
 }

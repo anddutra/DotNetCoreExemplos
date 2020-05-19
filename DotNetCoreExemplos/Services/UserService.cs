@@ -1,6 +1,7 @@
 ﻿using DotNetCoreExemplos.Models;
 using DotNetCoreExemplos.Repository;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace DotNetCoreExemplos.Services
 {
@@ -39,8 +40,7 @@ namespace DotNetCoreExemplos.Services
             return deleteUser;
         }
 
-
-        public string ReadUsersFile(string name)
+        public List<User> ReadUsersFile(string name)
         {
             return _userRepository.ReadUsersFile(name);
         }

@@ -4,25 +4,21 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DotNetCoreExemplos.HostedServices
+namespace WorkerServiceExemplos
 {
-    //IHostedService é iniciado quando a Api é executada e executa o StartAsync de acordo com o timer definido.
-    //Caso não seja utilizado um timer, o procedimento será executado apenas quando a Api subir.
-    //A cada 10 segundos será impresso Hello World no console.
-    //https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.1&tabs=visual-studio
-    public class HelloWorldHostedService : IHostedService, IDisposable
+    public class HelloWorldWoker : IHostedService, IDisposable
     {
-        private readonly ILogger<HelloWorldHostedService> _logger;
+        private readonly ILogger<HelloWorldWoker> _logger;
         private System.Timers.Timer _timer;
 
-        public HelloWorldHostedService(ILogger<HelloWorldHostedService> logger)
+        public HelloWorldWoker(ILogger<HelloWorldWoker> logger)
         {
             _logger = logger;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new System.Timers.Timer(10000);
+            _timer = new System.Timers.Timer(TimeSpan.FromSeconds(2).TotalMilliseconds);
             _timer.Elapsed += HelloWorld;
             _timer.Start();
             return Task.CompletedTask;

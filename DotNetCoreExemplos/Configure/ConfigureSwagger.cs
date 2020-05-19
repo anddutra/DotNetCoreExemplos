@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Reflection;
 
-namespace DotNetCoreExemplos.Middlewares
+namespace DotNetCoreExemplos.Configure
 {
     //Configuração do Swagger na Api
     //https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1

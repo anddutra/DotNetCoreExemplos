@@ -2,26 +2,22 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DotNetCoreExemplos.Services
+namespace HttpClientExemplos.Services
 {
-    public class ApiRequestService
+    public class WorldTimeApiRequestService
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger _logger;
 
-        public ApiRequestService(ILogger<ApiRequestService> logger, IHttpClientFactory httpClientFactory)
+        public WorldTimeApiRequestService(ILogger<WorldTimeApiRequestService> logger, IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
 
-        //Realiza a criação do httpClient com o nome HttpClientApi, conforme criado no Startup
-        //Faz a chamada para a Api worldtimeapi passando na url America/Sao_Paulo
-        //https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.1
-        //http://worldtimeapi.org/
         public async Task<string> GetApiWorldTime()
         {
-            var client = _httpClientFactory.CreateClient("HttpClientApi");
+            var client = _httpClientFactory.CreateClient("WorldTime");
             var request = new HttpRequestMessage(HttpMethod.Get, "America/Sao_Paulo");
 
             var response = await client.SendAsync(request);
