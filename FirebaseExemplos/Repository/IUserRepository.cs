@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace FireBaseExemplos.Repository
 {
-    public interface IFireBaseRepository
+    public interface IUserRepository
     {
         Task<IEnumerable<UserFirebase>> GetUsers(Func<CollectionReference, Query> query = null);
-        Task<UserFirebase> GetDocument(string id);
+        Task<UserFirebase> GetUsersById(string userId);
         Task<bool> CreateUser(UserFirebase user);
         Task<bool> DeleteUser(string userId);
+        void Listen(Action<QuerySnapshot> callback, Func<CollectionReference, Query> query = null);
     }
 }

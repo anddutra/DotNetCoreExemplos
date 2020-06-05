@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FireBaseExemplos.Repository
 {
-    public class FireBaseRepository : IFireBaseRepository
+    public class UserRepository : IUserRepository
     {
         private readonly FirestoreDb _firestoreDb;
         private const string _collectionName = "users";
 
-        public FireBaseRepository(FirestoreDb firestoreDb)
+        public UserRepository(FirestoreDb firestoreDb)
         {
             _firestoreDb = firestoreDb;
         }
@@ -24,9 +24,9 @@ namespace FireBaseExemplos.Repository
             return snapshot.Documents.AsParallel().Select(doc => doc.ConvertTo<UserFirebase>());
         }
 
-        public async Task<UserFirebase> GetDocument(string id)
+        public async Task<UserFirebase> GetUsersById(string userId)
         {
-            var snapshot = await _firestoreDb.Document($"{_collectionName}/{id}").GetSnapshotAsync();
+            var snapshot = await _firestoreDb.Document($"{_collectionName}/{userId}").GetSnapshotAsync();
             return snapshot.ConvertTo<UserFirebase>();
         }
 
@@ -53,6 +53,19 @@ namespace FireBaseExemplos.Repository
             catch
             {
                 return false;
+            }
+        }
+
+        public void Listen(Action<QuerySnapshot> callback, Func<CollectionReference, Query> query = null)
+        {
+            var collectionRef = _firestoreDb.Collection(_collectionName);
+            if (query == null)
+            {
+                collectionRef.Listen(callback);
+            }
+            else
+            {
+                query.Invoke(collectionRef).Listen(callback);
             }
         }
     }

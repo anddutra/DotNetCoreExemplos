@@ -1,3 +1,4 @@
+using FireBaseExemplos.Models;
 using FireBaseExemplos.Repository;
 using FireBaseExemplos.Services;
 using Google.Cloud.Firestore;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Concurrent;
 
 namespace FireBaseExemplos
 {
@@ -21,9 +23,15 @@ namespace FireBaseExemplos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton(_ => FirestoreDb.Create("apidotnetcore"));
-            services.AddScoped<FireBaseService>();
-            services.AddScoped<IFireBaseRepository, FireBaseRepository>();
+
+            services
+                //.AddAutoMapper(typeof(FirestoreListenerService))
+                .AddSingleton(_ => FirestoreDb.Create("apidotnetcore"))
+                .AddScoped<UserService>()
+                .AddSingleton<IUserRepository, UserRepository>()
+                .AddSingleton<ConcurrentDictionary<string, UserFirebase>>()
+                .AddSingleton<UserListenerService>()
+                .AddHostedService<FirestoreListenerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,17 +1,21 @@
 ﻿using FireBaseExemplos.Models;
 using FireBaseExemplos.Repository;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FireBaseExemplos.Services
 {
-    public class FireBaseService
+    public class UserService
     {
-        private readonly IFireBaseRepository _fireBaseRepository;
+        private readonly IUserRepository _fireBaseRepository;
+        private readonly ConcurrentDictionary<string, UserFirebase> _users;
 
-        public FireBaseService(IFireBaseRepository fireBaseRepository)
+        public UserService(IUserRepository fireBaseRepository, ConcurrentDictionary<string, UserFirebase> users)
         {
             _fireBaseRepository = fireBaseRepository;
+            _users = users;
         }
 
         public Task<IEnumerable<UserFirebase>> GetUsers(string name)
@@ -23,9 +27,17 @@ namespace FireBaseExemplos.Services
                     collectionRef.WhereEqualTo("name", name));
         }
 
-        public Task<UserFirebase> GetDocument(string id)
+        public IEnumerable<UserFirebase> GetUsersStream(string name)
         {
-            return _fireBaseRepository.GetDocument(id);
+            if (string.IsNullOrEmpty(name))
+                return _users.Select(usr => usr.Value);
+            else
+                return _users.Select(usr => usr.Value).Where(usr => usr.Name == name);
+        }
+
+        public Task<UserFirebase> GetUsersById(string userId)
+        {
+            return _fireBaseRepository.GetUsersById(userId);
         }
 
         public Task<bool> CreateUser(UserFirebase user)
