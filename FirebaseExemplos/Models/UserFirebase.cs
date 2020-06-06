@@ -1,5 +1,4 @@
-﻿using FireBaseExemplos.Util;
-using Google.Cloud.Firestore;
+﻿using Google.Cloud.Firestore;
 
 namespace FireBaseExemplos.Models
 {

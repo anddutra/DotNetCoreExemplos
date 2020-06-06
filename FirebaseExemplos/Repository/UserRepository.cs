@@ -20,13 +20,13 @@ namespace FireBaseExemplos.Repository
         public async Task<IEnumerable<UserFirebase>> GetUsers(Func<CollectionReference, Query> query = null)
         {
             var collectionRef = _firestoreDb.Collection(_collectionName);
-            var snapshot = query != null ? await query.Invoke(collectionRef).GetSnapshotAsync() : await collectionRef.GetSnapshotAsync();
-            return snapshot.Documents.AsParallel().Select(doc => doc.ConvertTo<UserFirebase>());
+            var snapshot = query != null ? await query.Invoke(collectionRef).GetSnapshotAsync().ConfigureAwait(false) : await collectionRef.GetSnapshotAsync().ConfigureAwait(false);
+            return snapshot.Documents.AsParallel().Select(doc => doc.ConvertTo<UserFirebase>()).OrderBy(usr => usr.Name);
         }
 
         public async Task<UserFirebase> GetUsersById(string userId)
         {
-            var snapshot = await _firestoreDb.Document($"{_collectionName}/{userId}").GetSnapshotAsync();
+            var snapshot = await _firestoreDb.Document($"{_collectionName}/{userId}").GetSnapshotAsync().ConfigureAwait(false); ;
             return snapshot.ConvertTo<UserFirebase>();
         }
 
@@ -34,7 +34,33 @@ namespace FireBaseExemplos.Repository
         {
             try
             {
-                await _firestoreDb.Collection(_collectionName).AddAsync(user);
+                await _firestoreDb.Collection(_collectionName).AddAsync(user).ConfigureAwait(false); ;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> AlterUser(UserFirebase user)
+        {
+            try
+            {
+                await _firestoreDb.Collection(_collectionName).Document(user.Id).SetAsync(user).ConfigureAwait(false); ;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> AlterStatus(string userId, object status)
+        {
+            try
+            {
+                await _firestoreDb.Collection(_collectionName).Document(userId).SetAsync(status, SetOptions.MergeAll).ConfigureAwait(false);
                 return true;
             }
             catch
@@ -47,7 +73,7 @@ namespace FireBaseExemplos.Repository
         {
             try
             {
-                await _firestoreDb.Collection(_collectionName).Document(userId).DeleteAsync();
+                await _firestoreDb.Collection(_collectionName).Document(userId).DeleteAsync().ConfigureAwait(false);
                 return true;
             }
             catch
@@ -56,6 +82,7 @@ namespace FireBaseExemplos.Repository
             }
         }
 
+        //Listener que fica monitorando a coleção de usuários
         public void Listen(Action<QuerySnapshot> callback, Func<CollectionReference, Query> query = null)
         {
             var collectionRef = _firestoreDb.Collection(_collectionName);

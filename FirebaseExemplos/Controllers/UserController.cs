@@ -40,6 +40,18 @@ namespace FireBaseExemplos.Controllers
             return Ok(await _fireBaseService.CreateUser(user));
         }
 
+        [HttpPut("AlterUser")]
+        public async Task<ActionResult<bool>> AlterUser([FromBody] UserFirebase user)
+        {
+            return Ok(await _fireBaseService.AlterUser(user));
+        }
+
+        [HttpPatch("AlterStatus/{userId}")]
+        public async Task<ActionResult<bool>> AlterUser(string userId, [FromQuery]string status)
+        {
+            return Ok(await _fireBaseService.AlterStatus(userId, status));
+        }
+
         [HttpDelete("DeleteUser/{userId}")]
         public async Task<ActionResult<bool>> DeleteUser(string userId)
         {

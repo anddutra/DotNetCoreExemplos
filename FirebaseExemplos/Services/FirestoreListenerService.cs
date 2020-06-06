@@ -9,6 +9,8 @@ using Type = Google.Cloud.Firestore.DocumentChange.Type;
 
 namespace FireBaseExemplos.Services
 {
+    //Classe que assina o stream de usuários e atualiza eles no dicionário
+    //É possível passar um query quando assinar o stream filtrando um determinado grupo de usuários
     public class FirestoreListenerService : IHostedService
     {
         private readonly ConcurrentDictionary<string, UserFirebase> _users;

@@ -30,9 +30,9 @@ namespace FireBaseExemplos.Services
         public IEnumerable<UserFirebase> GetUsersStream(string name)
         {
             if (string.IsNullOrEmpty(name))
-                return _users.Select(usr => usr.Value);
+                return _users.Select(usr => usr.Value).OrderBy(usr => usr.Name);
             else
-                return _users.Select(usr => usr.Value).Where(usr => usr.Name == name);
+                return _users.Select(usr => usr.Value).Where(usr => usr.Name == name).OrderBy(usr => usr.Name);
         }
 
         public Task<UserFirebase> GetUsersById(string userId)
@@ -43,6 +43,16 @@ namespace FireBaseExemplos.Services
         public Task<bool> CreateUser(UserFirebase user)
         {
             return _fireBaseRepository.CreateUser(user);
+        }
+
+        public Task<bool> AlterUser(UserFirebase user)
+        {
+            return _fireBaseRepository.AlterUser(user);
+        }
+
+        public Task<bool> AlterStatus(string userId, string userStatus)
+        {
+            return _fireBaseRepository.AlterStatus(userId, new { status = userStatus });
         }
 
         public Task<bool> DeleteUser(string userId)

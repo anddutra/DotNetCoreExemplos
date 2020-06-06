@@ -11,6 +11,9 @@ using System.Collections.Concurrent;
 
 namespace FireBaseExemplos
 {
+    //https://firebase.google.com/docs/admin/setup?hl=pt-br#c_2
+    //https://firebase.google.com/docs/firestore/quickstart#c
+    //https://firebase.google.com/docs/firestore/query-data/listen
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -25,7 +28,6 @@ namespace FireBaseExemplos
             services.AddControllers();
 
             services
-                //.AddAutoMapper(typeof(FirestoreListenerService))
                 .AddSingleton(_ => FirestoreDb.Create("apidotnetcore"))
                 .AddScoped<UserService>()
                 .AddSingleton<IUserRepository, UserRepository>()
