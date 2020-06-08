@@ -1,4 +1,5 @@
 using DotNetCoreExemplos.Configure;
+using DotNetCoreExemplos.Exceptions;
 using DotNetCoreExemplos.Repository;
 using DotNetCoreExemplos.Services;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +57,8 @@ namespace DotNetCoreExemplos
 
             app.UseHealthChecksApi(); //Endpoint da saude da Api.
             app.UseSwaggerApi(); //Endpoint do Swagger.
+
+            app.UseMiddleware<HttpResponseExceptionMiddleware>(); //Middleware para captuar as exeções e retornar a msg
 
             app.UseRouting();
             app.UseAuthorization();
