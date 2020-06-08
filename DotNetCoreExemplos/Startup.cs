@@ -41,7 +41,8 @@ namespace DotNetCoreExemplos
             services.AddSingleton<ValueService>();
             services.AddScoped<UserService>();
             services.AddSingleton<IUserRepository, UserRepository>();
-            
+            services.AddSingleton<CryptoRijndaelService>();
+
             services.AddHealthChecksApi(); //Verificação de saúde da Api.
             services.AddSwaggerGenApi(); //Configuração Swagger.
         }
